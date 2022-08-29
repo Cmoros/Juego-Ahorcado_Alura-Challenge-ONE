@@ -72,7 +72,6 @@ class AhorcadoGame {
 
         ahorcadoContainer.addEventListener('click', () => {
             invisibleInput.focus();
-            alert('hola');
         })
 
         invisibleInput.addEventListener('change', (e)=>{
