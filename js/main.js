@@ -53,7 +53,7 @@ class AhorcadoGame {
                 this.addNewWord(newWord);
                 this.displayMainGame(mainAdd);
             } else {
-                alert('No usar ')
+                alert('No usar caracteres especiales ni tildes.')
             }
         });
 
@@ -62,20 +62,7 @@ class AhorcadoGame {
             this.displayMainStart(mainGame);
         });
 
-        document.addEventListener('keydown', e => {
-            if (this.state !== 2) return false;
-            if (!this.tryLetter(e)) {
-                if (this.failsNumber === 10) {
-                    this.state = 4;
-                    alert('Perdiste!');
-                }
-                return;
-            }
-            if (this.succesfulNumberTries === this.word.length) {
-                alert('Ganaste!');
-                this.state = 4;
-            }
-        })
+        document.addEventListener('keydown', this.pressButtonEvent)
 
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
@@ -84,6 +71,8 @@ class AhorcadoGame {
         ahorcadoContainer.addEventListener('click', () => {
             invisibleInput.focus();
         })
+
+        invisibleInput.addEventListener('input', this.pressButtonEvent)
     }
     
     localStorageCheck = () => {
@@ -241,6 +230,21 @@ class AhorcadoGame {
         setTimeout(() => {
             mainGame.style.transition= `right ${this.transitionTime}s`;
         }, 1020)
+    }
+
+    pressButtonEvent = (e) => {
+        if (this.state !== 2) return false;
+        if (!this.tryLetter(e)) {
+            if (this.failsNumber === 10) {
+                this.state = 4;
+                alert('Perdiste!');
+            }
+            return;
+        }
+        if (this.succesfulNumberTries === this.word.length) {
+            alert('Ganaste!');
+            this.state = 4;
+        }
     }
 }
 
