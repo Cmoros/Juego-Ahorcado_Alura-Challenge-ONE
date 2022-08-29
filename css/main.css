@@ -245,7 +245,7 @@ body {
   min-width: 16px;
   max-width: 72px;
   display: flex;
-  flex: 1 1 auto;
+  flex: 1 1 16px;
   flex-direction: column;
   justify-content: stretch;
   align-items: center;

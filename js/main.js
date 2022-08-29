@@ -62,7 +62,9 @@ class AhorcadoGame {
             this.displayMainStart(mainGame);
         });
 
-        document.addEventListener('keydown', this.pressButtonEvent)
+        document.addEventListener('keydown', (e) => {
+            this.pressButtonEvent(e.key);
+        })
 
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
@@ -70,9 +72,13 @@ class AhorcadoGame {
 
         ahorcadoContainer.addEventListener('click', () => {
             invisibleInput.focus();
+            alert('hola');
         })
 
-        invisibleInput.addEventListener('input', this.pressButtonEvent)
+        invisibleInput.addEventListener('change', (e)=>{
+            this.pressButtonEvent(e.target.value);
+            invisibleInput.value = "";
+        })
     }
     
     localStorageCheck = () => {
@@ -130,12 +136,12 @@ class AhorcadoGame {
         }
     }
 
-    tryLetter = (e) => {
-        if (!regExpOnly1Letter.test(e.key)) {
+    tryLetter = (char) => {
+        if (!regExpOnly1Letter.test(char)) {
             console.log('Prtuebe con una letra');
             return false;
         }
-        let key = e.key.toUpperCase();
+        let key = char.toUpperCase();
         if (this.tries.has(key)) {
             console.log('Ya se probó esa letra, intente nuevamente');
             return false;
