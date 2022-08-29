@@ -1,0 +1,12 @@
+.input-word {
+    font-size: 32px;
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: inherit;
+
+    &::placeholder {
+        color: inherit;
+    }
+}

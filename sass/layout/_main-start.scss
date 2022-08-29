@@ -1,0 +1,21 @@
+.main-start {
+    position: relative;
+    flex-basis: 317px;
+    // display: none;
+    margin: 185px 29px;
+    right: 0;
+    transition: right 0.25s;
+    @media (min-width: 768px) {
+        margin: 338px auto;
+    }
+
+    @media (min-width: 1440px) {
+        margin: 314px auto;
+        // height: 114px;
+    }
+
+    &__button-panel-container {
+        height: 100%;
+        width: 100%;
+    }
+}

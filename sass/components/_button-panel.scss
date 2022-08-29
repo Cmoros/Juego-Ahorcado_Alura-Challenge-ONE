@@ -1,0 +1,44 @@
+.button-panel {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+    }
+    
+    &--start {
+        flex-direction: column;
+        gap:16px;
+        @media (min-width: 768px) {
+            gap: 38px;
+        }
+    }
+
+    &__button-container {
+        width: 100%;
+        height: fit-content;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 67px;
+
+        &--thin {
+            padding: 0 20px;
+            @media (min-width: 768px) {
+                padding: 0 6.5px;
+            }
+            @media (min-width: 1440px) {
+                padding: 0 20px;
+            }
+        }
+
+        &--large {
+            height: 105px;
+        }
+    }
+
+    
+}

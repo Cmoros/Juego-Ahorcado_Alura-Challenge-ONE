@@ -1,0 +1,36 @@
+@charset "UTF-8";
+
+// 1. Configuration and helpers
+@use 'abstracts/variables';
+@use 'abstracts/functions';
+@use 'abstracts/mixins';
+
+// 2. Vendors
+// @use 'vendors/normalize';
+@use 'vendors/reset';
+
+// 3. Base stuff
+@use 'base/base';
+@use 'base/fonts';
+@use 'base/typography';
+@use 'base/utilities';
+
+// 4. Layout-related sections
+@use 'layout/main-header';
+@use 'layout/main-footer';
+@use 'layout/main-game';
+@use 'layout/main-add';
+@use 'layout/main-start';
+@use 'layout/ahorcado';
+
+// 5. Components
+@use 'components/button';
+@use 'components/button-panel';
+@use 'components/input-word';
+@use 'components/clarification';
+
+// 6. Page-specific styles
+@use 'pages/home';
+
+// 7. Themes
+@use 'themes/default';
