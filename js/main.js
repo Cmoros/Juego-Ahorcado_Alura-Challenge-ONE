@@ -82,9 +82,9 @@ class AhorcadoGame {
         })
 
         invisibleInput.addEventListener('keydown', (e)=>{
-            this.pressButtonEvent(e.target.innerHTML);
-            e.target.innerHTML = "";
-            // console.log('por input')
+            this.pressButtonEvent(e.target.value);
+            e.target.value = "";
+            console.log('por input')
         })
     }
     
