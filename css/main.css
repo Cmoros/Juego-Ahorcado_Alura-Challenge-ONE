@@ -242,6 +242,7 @@ body {
   gap: 24px;
 }
 .letters__char {
+  min-width: 16px;
   max-width: 72px;
   display: flex;
   flex: 1 1 auto;
@@ -271,6 +272,8 @@ body {
 }
 
 .char {
+  display: flex;
+  justify-content: center;
   text-align: center;
   width: 100%;
   font-size: 24px;
@@ -380,4 +383,8 @@ body {
 }
 .clarification__description {
   color: #495057;
+}
+
+.input-invisible {
+  display: none;
 }/*# sourceMappingURL=main.css.map */

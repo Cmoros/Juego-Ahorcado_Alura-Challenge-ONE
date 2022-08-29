@@ -14,6 +14,9 @@ const quitGameButton = mainGame.querySelector('#quit-button');
 const triesContainer = mainGame.querySelector('.letters__char-container');
 const failContainer = mainGame.querySelector('.letters__try-container');
 
+const ahorcadoContainer = mainGame.querySelector('.main-game__ahorcado-container');
+const invisibleInput = mainGame.querySelector('.input-invisible');
+
 let starterWords = [
     'AMIGO',
     'JEFE',
@@ -77,6 +80,10 @@ class AhorcadoGame {
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
         })
+
+        ahorcadoContainer.addEventListener('click', () => {
+            invisibleInput.focus();
+        })
     }
     
     localStorageCheck = () => {
@@ -103,13 +110,13 @@ class AhorcadoGame {
     }
 
     displayMainGame = (originMain) => {
+        this.state = 2;
         if (originMain === mainGame) {
             this.newGameAnimation();
             return;
         }
         this.mainChangeAnimation(originMain, mainGame);
         this.startGame();
-        this.state = 2;
     }
 
     displayMainStart = (originMain) => {

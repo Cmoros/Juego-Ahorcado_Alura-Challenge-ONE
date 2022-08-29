@@ -27,6 +27,7 @@
     gap: 24px;
 
     &__char {
+        min-width: 16px;
         max-width: 72px;
         display: flex;
         flex: 1 1 auto;
@@ -63,6 +64,9 @@
 }
 
 .char {
+    display: flex;
+    justify-content: center;
+    // align-items: center;r
     text-align: center;
     width: 100%;
     font-size: 24px;
