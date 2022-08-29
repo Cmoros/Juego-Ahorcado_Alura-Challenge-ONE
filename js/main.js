@@ -19,9 +19,12 @@ const invisibleInput = mainGame.querySelector('.input-invisible');
 
 let starterWords = [
     'AMIGO',
-    'JEFE',
-    'ESDRUJULA',
-    'FACCION',
+    'VESTIDO',
+    'FUEGO',
+    'ENERGIA',
+    'SABIDURIA',
+    'MIGRACION',
+    'TOMATE',
 ];
 
 let regExpUpperCase = /^[A-ZÑ]{2,10}$/;
@@ -74,9 +77,13 @@ class AhorcadoGame {
             invisibleInput.focus();
         })
 
-        invisibleInput.addEventListener('change', (e)=>{
-            this.pressButtonEvent(e.target.value);
-            invisibleInput.value = "";
+        mainAdd.addEventListener('click', () => {
+            addWordInput.focus();
+        })
+
+        invisibleInput.addEventListener('input', (e)=>{
+            this.pressButtonEvent(e.target.innerHTML);
+            e.target.innerHTML = "";
         })
     }
     
