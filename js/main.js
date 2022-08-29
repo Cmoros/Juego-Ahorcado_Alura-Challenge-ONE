@@ -81,14 +81,17 @@ class AhorcadoGame {
             addWordInput.focus();
         })
 
-        invisibleInput.addEventListener('input', (e)=>{
+        invisibleInput.addEventListener('keydown', (e)=>{
             this.pressButtonEvent(e.target.innerHTML);
             e.target.innerHTML = "";
+            // console.log('por input')
         })
     }
     
     localStorageCheck = () => {
-        if (localStorage.ahorcadoWords && localStorage.ahorcadoWords.length > 1) {
+        localStorage.ahorcadoWordsStarter = starterWords;
+        let len = localStorage.ahorcadoWordsStarter.length;
+        if (localStorage.ahorcadoWords && (localStorage.ahorcadoWords.slice(0,len) === localStorage.ahorcadoWordsStarter)) {
             this.wordArray = [];
             for (let word of localStorage.ahorcadoWords.split(',')) {
                 if (this.checkAddableWord(word)) {
