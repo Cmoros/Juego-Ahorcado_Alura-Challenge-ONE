@@ -65,10 +65,10 @@ class AhorcadoGame {
             this.displayMainStart(mainGame);
         });
 
-        document.addEventListener('keydown', (e) => {
-            this.pressButtonEvent(e.key);
-            // console.log(e.key);
-        })
+        // document.addEventListener('keydown', (e) => {
+        //     this.pressButtonEvent(e.key);
+        //     // console.log(e.key);
+        // })
 
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
@@ -87,11 +87,10 @@ class AhorcadoGame {
         //     this.pressButtonEvent(e.key);
         // })
 
-        // invisibleInput.addEventListener('input', (e)=>{
-        //     this.invisibleInputEvent(e);
-        //     // console.log(e.target.value);
-        //     // e.target.value = "";
-        // })
+        invisibleInput.addEventListener('input', (e)=>{
+            this.invisibleInputEvent(e);
+            e.target.value = "";
+        })
 
         this.gameTimeOut = false;
     }
@@ -151,6 +150,9 @@ class AhorcadoGame {
         for (let i = 0; i < this.word.length; i++) {
             this.createSuccessDiv(i);
         }
+        setTimeout(() => {
+            invisibleInput.focus();
+        }, 600);
     }
 
     tryLetter = (char) => {
