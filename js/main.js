@@ -65,9 +65,9 @@ class AhorcadoGame {
             this.displayMainStart(mainGame);
         });
 
-        // document.addEventListener('keydown', (e) => {
-        //     this.pressButtonEvent(e.key);
-        // })
+        document.addEventListener('keydown', (e) => {
+            this.pressButtonEvent(e.key);
+        })
 
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
@@ -288,7 +288,7 @@ class AhorcadoGame {
     invisibleInputEvent = (event) => {
         this.pressButtonEvent(event.target.value);
         event.target.value = "";
-        invisibleInput.focus();
+        // invisibleInput.focus();
     }
 
     newPersonPartAnimation = (part) => {
