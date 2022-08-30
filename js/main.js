@@ -82,12 +82,13 @@ class AhorcadoGame {
         })
 
         invisibleInput.addEventListener('keydown', (e)=>{
-            this.invisibleInputEvent(e)
+            // this.invisibleInputEvent(e);
+            this.pressButtonEvent(e.key);
         })
 
-        invisibleInput.addEventListener('input', async (e)=>{
-            this.invisibleInputEvent(e)
-        })
+        // invisibleInput.addEventListener('input', (e)=>{
+        //     this.invisibleInputEvent(e);
+        // })
 
         this.gameTimeOut = false;
     }
@@ -150,6 +151,7 @@ class AhorcadoGame {
     }
 
     tryLetter = (char) => {
+        console.log(char)
         if (!regExpOnly1Letter.test(char)) {
             console.log('Prtuebe con una letra');
             return false;
@@ -261,14 +263,14 @@ class AhorcadoGame {
         }, 1020)
     }
 
-    pressButtonEvent = (e) => {
+    pressButtonEvent = (key) => {
         if (this.state !== 2 || this.gameTimeOut) return;
         this.gameTimeOut = true;
         setTimeout(() => {
             this.gameTimeOut = false;
         }, 400)
 
-        if (!this.tryLetter(e)) {
+        if (!this.tryLetter(key)) {
             if (this.failsNumber === 10) {
                 this.state = 4;
                 alert('Perdiste!');
@@ -281,9 +283,9 @@ class AhorcadoGame {
         }
     }
 
-    invisibleInputEvent = (e) => {
-        this.pressButtonEvent(e.target.value);
-        e.target.value = "";
+    invisibleInputEvent = (event) => {
+        this.pressButtonEvent(event.target.value);
+        event.target.value = "";
         invisibleInput.focus();
     }
 
