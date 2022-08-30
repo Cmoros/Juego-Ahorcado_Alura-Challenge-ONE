@@ -65,9 +65,9 @@ class AhorcadoGame {
             this.displayMainStart(mainGame);
         });
 
-        document.addEventListener('keydown', (e) => {
-            this.pressButtonEvent(e.key);
-        })
+        // document.addEventListener('keydown', (e) => {
+        //     this.pressButtonEvent(e.key);
+        // })
 
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
@@ -81,14 +81,16 @@ class AhorcadoGame {
             addWordInput.focus();
         })
 
-        invisibleInput.addEventListener('keydown', (e)=>{
-            // this.invisibleInputEvent(e);
-            this.pressButtonEvent(e.key);
-        })
-
-        // invisibleInput.addEventListener('input', (e)=>{
-        //     this.invisibleInputEvent(e);
+        // invisibleInput.addEventListener('keydown', (e)=>{
+        //     // this.invisibleInputEvent(e);
+        //     this.pressButtonEvent(e.key);
         // })
+
+        invisibleInput.addEventListener('input', (e)=>{
+            this.invisibleInputEvent(e);
+            // console.log(e.target.value);
+            // e.target.value = "";
+        })
 
         this.gameTimeOut = false;
     }
