@@ -65,11 +65,6 @@ class AhorcadoGame {
             this.displayMainStart(mainGame);
         });
 
-        // document.addEventListener('keydown', (e) => {
-        //     this.pressButtonEvent(e.key);
-        //     // console.log(e.key);
-        // })
-
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
         })
@@ -156,14 +151,12 @@ class AhorcadoGame {
     }
 
     tryLetter = (char) => {
-        console.log(char)
         if (!regExpOnly1Letter.test(char)) {
             console.log('Prtuebe con una letra');
             return false;
         }
         let key = char.toUpperCase();
         if (this.tries.has(key)) {
-            // console.log('Ya se probó esa letra, intente nuevamente');
             document.querySelectorAll(`.letter-${key}`).forEach(letter => this.ShakeAnimation(letter))
             return false;
         }
@@ -277,14 +270,14 @@ class AhorcadoGame {
 
         if (!this.tryLetter(key)) {
             if (this.failsNumber === 10) {
-                this.state = 4;
-                alert('Perdiste!');
+                this.state = 3;
+                setTimeout(()=>this.resultMessage('lose'),400)
             }
             return;
         }
         if (this.succesfulNumberTries === this.word.length) {
-            alert('Ganaste!');
-            this.state = 4;
+            setTimeout(()=>this.resultMessage('win'),400)
+            this.state = 3;
         }
     }
 
@@ -304,7 +297,6 @@ class AhorcadoGame {
             if (part.y.baseVal.value >= initialY && part.y.baseVal.value-5 <= initialY) {
                 clearInterval(interval);
                 part.y.baseVal.value = initialY;
-                console.log('apague el set interval')
             }
         }, 1);
         
@@ -328,6 +320,37 @@ class AhorcadoGame {
             targetChar.style.transform = "scale(1)";
         }, 25)
     }
+
+    resultMessage = (result) => {
+        let fragment = new DocumentFragment;
+        let resultDivContainer = document.createElement('div');
+        resultDivContainer.classList.add(`message-${result}-container`);
+        let resultDiv = document.createElement('div');
+        resultDiv.classList.add(`message-${result}`);
+        let image = document.createElement('img');
+        image.setAttribute('src', `./img/${result}.gif`)
+        let message = document.createElement('p');
+        message.innerHTML = this[result];
+        resultDiv.appendChild(image);
+        resultDiv.appendChild(message);
+        resultDivContainer.appendChild(resultDiv)
+        fragment.appendChild(resultDivContainer);
+        resultDivContainer.addEventListener('click', e => {
+            this.vanishAnimation(resultDivContainer);
+        })
+        document.body.append(fragment);
+    }
+
+    win = "¡Felicidades!<span>Has ganado</span>";
+    
+    lose = "Has perdido. <span>¡Inténtelo nuevamente!</span>";
+
+    vanishAnimation = el => {
+        el.style.opacity = 0;
+        setTimeout(() => el.remove(), 500)
+    }
+
 }
 
 const ahorcado = new AhorcadoGame();
+// ahorcado.resultMessage('lose');
