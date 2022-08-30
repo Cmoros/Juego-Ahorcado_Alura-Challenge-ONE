@@ -67,6 +67,7 @@ class AhorcadoGame {
 
         document.addEventListener('keydown', (e) => {
             this.pressButtonEvent(e.key);
+            // console.log(e.key);
         })
 
         newGameButton.addEventListener('click', () => {
@@ -86,11 +87,11 @@ class AhorcadoGame {
         //     this.pressButtonEvent(e.key);
         // })
 
-        invisibleInput.addEventListener('input', (e)=>{
-            this.invisibleInputEvent(e);
-            // console.log(e.target.value);
-            // e.target.value = "";
-        })
+        // invisibleInput.addEventListener('input', (e)=>{
+        //     this.invisibleInputEvent(e);
+        //     // console.log(e.target.value);
+        //     // e.target.value = "";
+        // })
 
         this.gameTimeOut = false;
     }
