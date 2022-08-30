@@ -1,0 +1,23 @@
+.github-link {
+    &__svg {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        &--hover-hide {
+            display: block;
+        }
+
+        &--hover-show {
+            display: none;
+        }
+    }
+
+    &:hover > &__svg--hover-hide {
+        display: none;
+    }
+
+    &:hover > &__svg--hover-show {
+        display: block;
+    }
+}

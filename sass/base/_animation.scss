@@ -1,0 +1,27 @@
+@keyframes horizontal-shaking-1 {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(15px) }
+    50% { transform: translateX(-15px) }
+    75% { transform: translateX(15px) }
+    100% { transform: translateX(0) }
+}
+
+@keyframes horizontal-shaking-2 {
+    0% { transform: translateX(0) }
+    25% { transform: translateX(15px) }
+    50% { transform: translateX(-15px) }
+    75% { transform: translateX(15px) }
+    100% { transform: translateX(0) }
+}
+
+.horizontal-shaking {
+    &-1 {
+        animation: horizontal-shaking-1 0.2s 2;
+        // animation-iteration-count: 4;
+    }
+    &-2 {
+        animation: horizontal-shaking-2 0.2s 2;
+        // animation-iteration-count: 4;
+    }
+}
+

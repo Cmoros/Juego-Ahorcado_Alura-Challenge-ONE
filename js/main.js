@@ -82,16 +82,14 @@ class AhorcadoGame {
         })
 
         invisibleInput.addEventListener('keydown', (e)=>{
-            this.pressButtonEvent(e.target.value);
-            e.target.value = "";
-            invisibleInput.focus();
+            this.invisibleInputEvent(e)
         })
 
-        invisibleInput.addEventListener('input', (e)=>{
-            this.pressButtonEvent(e.target.value);
-            e.target.value = "";
-            invisibleInput.focus();
+        invisibleInput.addEventListener('input', async (e)=>{
+            this.invisibleInputEvent(e)
         })
+
+        this.gameTimeOut = false;
     }
     
     localStorageCheck = () => {
@@ -158,22 +156,29 @@ class AhorcadoGame {
         }
         let key = char.toUpperCase();
         if (this.tries.has(key)) {
-            console.log('Ya se probó esa letra, intente nuevamente');
+            // console.log('Ya se probó esa letra, intente nuevamente');
+            document.querySelectorAll(`.letter-${key}`).forEach(letter => this.ShakeAnimation(letter))
             return false;
         }
         let index = this.word.indexOf(key)
-        this.tries.add(key);
+        this.tries.add(key);               
         if (index < 0) {
+            this.ShakeAnimation(document.body);
             this.createFailDiv(key);
             this.failsNumber++;
-            personGame.querySelector(`.person__part-${this.failsNumber}`).classList.remove('hidden');
+            let part = personGame.querySelector(`.person__part-${this.failsNumber}`);
+            if (this.failsNumber === 5) {
+                part.classList.remove('hidden');
+            } else {
+                this.newPersonPartAnimation(part);
+            }
             return false;
         } 
 
         while (index >= 0) {
             this.succesfulNumberTries ++;
             let targetChar = triesContainer.querySelector(`.char--${index+1}`);
-            targetChar.classList.remove('hidden');
+            this.successAnimation(targetChar)
             index = this.word.indexOf(key, index+1);
         }
         return true;
@@ -181,25 +186,28 @@ class AhorcadoGame {
 
     createSuccessDiv = (classNumber) => {
         let fragment= new DocumentFragment();
-            let container = document.createElement('div');
-            container.classList.add('letters__char');
-            let span = document.createElement('span');
-            span.innerHTML = this.word[classNumber];
-            span.classList.add('char');
-            span.classList.add('hidden');
-            span.classList.add(`char--${classNumber+1}`);
-            let underscore = document.createElement('div');
-            underscore.classList.add('underscore');
-            container.appendChild(span);
-            container.appendChild(underscore);
-            fragment.append(container);
-            triesContainer.appendChild(fragment);
+        let container = document.createElement('div');
+        container.classList.add('letters__char');
+        
+        let span = document.createElement('span');
+        span.innerHTML = this.word[classNumber];
+        span.classList.add('char');
+        span.classList.add('hidden');
+        span.classList.add(`char--${classNumber+1}`);
+        span.classList.add(`letter-${this.word[classNumber]}`);
+        let underscore = document.createElement('div');
+        underscore.classList.add('underscore');
+        container.appendChild(span);
+        container.appendChild(underscore);
+        fragment.append(container);
+        triesContainer.appendChild(fragment);
     }
 
     createFailDiv = (key) => {
         let fragment= new DocumentFragment();
         let container = document.createElement('div');
         container.classList.add('letters__try');
+        container.classList.add(`letter-${key}`);
         container.innerHTML = key;
         fragment.append(container);
         failContainer.appendChild(fragment);
@@ -254,7 +262,12 @@ class AhorcadoGame {
     }
 
     pressButtonEvent = (e) => {
-        if (this.state !== 2) return false;
+        if (this.state !== 2 || this.gameTimeOut) return;
+        this.gameTimeOut = true;
+        setTimeout(() => {
+            this.gameTimeOut = false;
+        }, 400)
+
         if (!this.tryLetter(e)) {
             if (this.failsNumber === 10) {
                 this.state = 4;
@@ -266,6 +279,47 @@ class AhorcadoGame {
             alert('Ganaste!');
             this.state = 4;
         }
+    }
+
+    invisibleInputEvent = (e) => {
+        this.pressButtonEvent(e.target.value);
+        e.target.value = "";
+        invisibleInput.focus();
+    }
+
+    newPersonPartAnimation = (part) => {
+        let initialY = part.y.baseVal.value;
+        part.y.baseVal.value = -400;
+        part.classList.remove('hidden');
+        let interval = setInterval(() => {
+            part.y.baseVal.value = part.y.baseVal.value+ 5;
+            
+            if (part.y.baseVal.value >= initialY && part.y.baseVal.value-5 <= initialY) {
+                clearInterval(interval);
+                part.y.baseVal.value = initialY;
+                console.log('apague el set interval')
+            }
+        }, 1);
+        
+    }
+
+    ShakeAnimation = (el) => {
+        let classToAdd = 'horizontal-shaking-1';
+        let classToRemove = 'horizontal-shaking-2';
+        if (el.classList.contains('horizontal-shaking-1')) {
+            classToAdd = 'horizontal-shaking-2';
+            classToRemove = 'horizontal-shaking-1';
+        }
+        el.classList.remove(classToRemove);
+        el.classList.add(classToAdd);
+    }
+
+    successAnimation = (targetChar) => {
+        targetChar.classList.remove('hidden');
+        setTimeout(() => {
+
+            targetChar.style.transform = "scale(1)";
+        }, 25)
     }
 }
 
