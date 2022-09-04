@@ -1,14 +1,41 @@
+@use '../abstracts/variables';
+
 * {
     box-sizing: border-box;
 }
 
+html {
+    width: 100%;
+    height: 100%;
+    // overflow-x: hidden;
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // flex-direction: column;
+    // overflow-y: auto;
+}
+
 body {
     font-size: 1em;
-    color: #0A3871;
-    background-color: #F3F5FC;
+    color: variables.$color1;
+    background-color: variables.$bgc1;
+    width: 100%;
+    display: flex;
+    overflow-y: visible;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    overflow-x: hidden;
+    transition: color 0.5s, background 0.5s;
+    &.dark {
+        color: variables.$color2;
+        background-color: variables.$bgc2;
+    }
 }
 
 main {
+    max-width: 1440px;
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: center;

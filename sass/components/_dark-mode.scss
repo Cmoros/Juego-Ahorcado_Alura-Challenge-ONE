@@ -1,0 +1,100 @@
+@use '../abstracts/variables';
+
+@keyframes translate-right {
+    0% { right: 50% }
+    100% { right: 0 }
+}
+
+@keyframes translate-left {
+    0% { right: 0 }
+    100% { right: 50% }
+}
+
+$switch-transition: 0.5s;
+$border-radius: 40px;
+
+.dark-mode {
+    &-checkbox {
+        display: none;
+        &:checked + header .dark-mode{
+            &-button {
+                animation: translate-right $switch-transition forwards;
+            }
+        }
+    }
+    &-label {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color:rgba(variables.$color1, 0.5);
+        // border: ;
+        border-radius: $border-radius;
+        transition: background 0.5s;
+    }
+    &-button {
+        animation: translate-left $switch-transition forwards;
+        position: absolute;
+        background-color:rgba(variables.$color1, 1);
+        height: 100%;
+        width: 50%;
+        border-radius: $border-radius;
+        transition: background 0.5s;
+    }
+
+    &-text {
+        display: none;
+    }
+
+    &-icon {
+        &--light path {
+            fill: rgba(variables.$bgc1, 1);
+            transition: fill 0.5s;
+        }
+        &--dark path {
+            fill: rgba(variables.$bgc1, 0.75);
+            transition: fill 0.5s;
+        }
+    }
+
+    &-names {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 0 7.5px;
+        align-items: center;
+    }
+
+    &-light,
+    &-dark {
+        position: relative;
+        z-index: 5;
+        width: 35px;
+        height: 35px;
+
+        display: flex;
+        align-items: center;
+    }
+}
+
+body.dark {
+    .dark-mode {
+        &-label {
+            background-color:rgba(variables.$color2, 0.5);
+        }
+
+        &-button {
+            background-color:rgba(variables.$color2, 1);
+        }
+
+        &-icon {
+            &--light path {
+                fill: rgba(variables.$bgc2, 0.75);
+            }
+            &--dark path {
+                fill: rgba(variables.$bgc2, 1);
+            }
+        }
+    }
+}

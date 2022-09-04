@@ -1,8 +1,22 @@
+@use '../abstracts/variables';
+
 .clarification {
     display: flex;
     gap: 8px;
 
     &__description {
         color: #495057;
+    }
+}
+
+body.dark {
+    .clarification {
+        &__description {
+            color: variables.$color2;
+        }
+
+        path {
+            fill: variables.$color2;
+        }
     }
 }

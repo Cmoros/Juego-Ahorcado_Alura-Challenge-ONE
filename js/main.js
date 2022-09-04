@@ -1,3 +1,32 @@
+const darkModeCheckbox = document.querySelector('#dark-mode-checkbox');
+
+function changeDarkMode() {
+    document.body.classList.toggle('dark');
+    localStorage.darkMode = darkModeCheckbox.checked || "";
+}
+
+function initDarkMode() {
+    if (localStorage.darkMode) {
+        darkModeCheckbox.checked = true;
+        changeDarkMode();
+        return;
+    }
+    const prefersDarkScheme = window.matchMedia("(prefers-color-scheme: dark)");
+    if (prefersDarkScheme.matches) {
+        darkModeCheckbox.checked = true;
+        changeDarkMode();
+    }
+}
+
+
+
+darkModeCheckbox.addEventListener('change', e => {
+    changeDarkMode();
+});
+
+initDarkMode();
+
+
 const mainStart = document.querySelector('.main-start');
 const addButton = mainStart.querySelector('#add-button');
 const startGameButton = mainStart.querySelector('#start-button');
@@ -18,17 +47,18 @@ const ahorcadoContainer = mainGame.querySelector('.main-game__ahorcado-container
 const invisibleInput = mainGame.querySelector('.input-invisible');
 
 let starterWords = [
-    'AMIGO',
-    'VESTIDO',
-    'FUEGO',
+    'AMISTAD',
+    'FUERZA',
+    'COMIDA',
     'ENERGIA',
-    'SABIDURIA',
-    'MIGRACION',
+    'ALEGRIA',
+    'CANCION',
+    'TRUENO',
     'TOMATE',
+    'CONTROL'
 ];
 
-let regExpUpperCase = /^[A-ZÑ]{2,10}$/;
-let regExpOnlyLetters = /^[A-ZÑa-zñ]{2,10}$/;
+let regExpOnlyLetters = /^[A-ZÑa-zñ]{2,8}$/;
 let regExpOnly1Letter = /^[A-Za-zÑñ]$/;
 
 class AhorcadoGame {
@@ -60,6 +90,15 @@ class AhorcadoGame {
             }
         });
 
+        addWordInput.addEventListener('input', e => {
+            if (this.checkAddableWord(e.target.value)) {
+                saveWordButton.disabled = false;
+                return;
+            }
+            saveWordButton.disabled = true;
+
+        })
+
         // main-game
         quitGameButton.addEventListener('click', () => {
             this.displayMainStart(mainGame);
@@ -76,11 +115,6 @@ class AhorcadoGame {
         mainAdd.addEventListener('click', () => {
             addWordInput.focus();
         })
-
-        // invisibleInput.addEventListener('keydown', (e)=>{
-        //     // this.invisibleInputEvent(e);
-        //     this.pressButtonEvent(e.key);
-        // })
 
         invisibleInput.addEventListener('input', (e)=>{
             this.invisibleInputEvent(e);
@@ -107,7 +141,9 @@ class AhorcadoGame {
     }
 
     displayMainAdd = (originMain) => {
-        this.mainChangeAnimation(originMain, mainAdd); 
+        addWordInput.value = "";
+        saveWordButton.disabled = true;
+        this.mainChangeAnimation(originMain, mainAdd);
         this.state = 1;
     }
 
@@ -157,7 +193,7 @@ class AhorcadoGame {
         }
         let key = char.toUpperCase();
         if (this.tries.has(key)) {
-            document.querySelectorAll(`.letter-${key}`).forEach(letter => this.ShakeAnimation(letter))
+            document.querySelectorAll(`.letter-${key}`).forEach(letter => this.ShakeAnimation(letter));
             return false;
         }
         let index = this.word.indexOf(key)
@@ -241,9 +277,6 @@ class AhorcadoGame {
                 appearingMain.style.right = "0";
                 leavingMain.style.right = "0";
             }, 20)
-            // setTimeout(() => {
-                
-            // }, this.transitionTime*1000)
         },this.transitionTime*1000)
     }
 
@@ -271,7 +304,8 @@ class AhorcadoGame {
         if (!this.tryLetter(key)) {
             if (this.failsNumber === 10) {
                 this.state = 3;
-                setTimeout(()=>this.resultMessage('lose'),400)
+                setTimeout(()=>this.resultMessage('lose'),400);
+                this.showHiddenLetters();
             }
             return;
         }
@@ -284,7 +318,6 @@ class AhorcadoGame {
     invisibleInputEvent = (event) => {
         this.pressButtonEvent(event.target.value);
         event.target.value = "";
-        // invisibleInput.focus();
     }
 
     newPersonPartAnimation = (part) => {
@@ -350,7 +383,16 @@ class AhorcadoGame {
         setTimeout(() => el.remove(), 500)
     }
 
+    showHiddenLetters = () => {
+        document.querySelectorAll('.char').forEach(char => {
+            if (char.classList.contains('hidden')) {
+                char.classList.replace('hidden', 'char--missed');
+            }
+        });
+    }
+
+
 }
 
 const ahorcado = new AhorcadoGame();
-// ahorcado.resultMessage('lose');
+

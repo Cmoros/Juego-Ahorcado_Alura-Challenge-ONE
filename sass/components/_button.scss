@@ -1,6 +1,4 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the button component.
-// -----------------------------------------------------------------------------
+@use '../abstracts/variables';
 
 .button {
     cursor: pointer;
@@ -11,14 +9,60 @@
     border-radius: 24px;
     width: 100%;
     height: 100%;
-    border: 1px solid #0A3871;
+    color: inherit;
+    border: 1px solid;
     background: transparent;
     padding: 0;
+    
     font-size: inherit;
 
     &--dark {
-        background-color: #0A3871;
-        color: white;
+        background-color: variables.$bgc2;
+        color: variables.$color2;
+        transition: color 0.5s, background 0.5s;
         border: none;
+    }
+
+    &-disabled-message {
+        position: absolute;
+        opacity: 0;
+        bottom: 0;
+        font-size: 11px;
+        padding: 4px 12px;
+        border: 1px solid;
+        border-radius: 20px;
+        z-index: 3;
+        pointer-events: none;
+        // background-color: variables.$bgc1;
+        background-color: inherit;
+        transition: bottom 0.5s, opacity 0.5s, background 0.5s;
+
+        @media (min-width: 768px) {
+            font-size: 13px;
+            padding: 8px 12px;
+        }
+    }
+
+    &:disabled {
+        cursor:not-allowed;
+        filter: opacity(0.5);
+
+        &:hover + .button-disabled-message {
+            bottom: -15px;
+            opacity: 1;
+
+            @media (min-width: 768px) {
+                bottom: -35px;
+            }
+        }
+    }
+}
+
+body.dark {
+    & .button {
+        &--dark {
+            background-color: variables.$bgc1;
+            color: variables.$color1;
+        }
     }
 }

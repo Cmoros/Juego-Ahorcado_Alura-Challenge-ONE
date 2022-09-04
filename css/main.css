@@ -57,13 +57,32 @@ table {
   box-sizing: border-box;
 }
 
+html {
+  width: 100%;
+  height: 100%;
+}
+
 body {
   font-size: 1em;
   color: #0A3871;
   background-color: #F3F5FC;
+  width: 100%;
+  display: flex;
+  overflow-y: visible;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  overflow-x: hidden;
+  transition: color 0.5s, background 0.5s;
+}
+body.dark {
+  color: white;
+  background-color: #0A3871;
 }
 
 main {
+  max-width: 1440px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -164,9 +183,14 @@ body {
 }
 
 .main-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 96px;
   padding: 24px 16px;
+  max-width: 1440px;
 }
 @media (min-width: 768px) {
   .main-header {
@@ -184,6 +208,20 @@ body {
     padding: 40px 88px 0;
   }
 }
+.main-header__dark-mode-container {
+  height: 48px;
+  width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main-header path {
+  transition: fill 0.5s;
+}
+
+body.dark .main-header path {
+  fill: white;
+}
 
 .main-footer {
   padding: 0 10px;
@@ -192,6 +230,7 @@ body {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  max-width: 1440px;
 }
 .main-footer__copyright {
   width: 100%;
@@ -216,6 +255,13 @@ body {
   flex-direction: column;
   justify-content: center;
 }
+.main-footer path {
+  transition: fill 0.5s;
+}
+
+body.dark .main-footer path {
+  fill: white;
+}
 
 .main-game {
   flex-grow: 1;
@@ -231,29 +277,29 @@ body {
 }
 @media (min-width: 768px) {
   .main-game {
-    margin: 118.09px 40px 40px;
+    margin: 40px 40px 40px;
     max-width: 1000px;
   }
 }
 @media (min-width: 1440px) {
   .main-game {
-    margin: 60px 376px 71px;
+    margin: 25px 376px 25px;
     max-width: 1000px;
   }
 }
 .main-game__ahorcado-container {
   width: 100%;
   height: 100%;
-  margin-bottom: 56px;
+  margin-bottom: 50px;
 }
 @media (min-width: 768px) {
   .main-game__ahorcado-container {
-    margin-bottom: 109px;
+    margin-bottom: 100px;
   }
 }
 @media (min-width: 1440px) {
   .main-game__ahorcado-container {
-    margin-bottom: 106px;
+    margin-bottom: 100px;
   }
 }
 .main-game__button-panel-container {
@@ -280,20 +326,21 @@ body {
 }
 @media (min-width: 1440px) {
   .main-add {
-    margin: 168px 376px 256px;
+    margin: 150px 376px 150px;
   }
 }
 .main-add__input-container {
-  margin-bottom: 251px;
+  padding-bottom: 251px;
+  cursor: text;
 }
 @media (min-width: 768px) {
   .main-add__input-container {
-    margin-bottom: 595px;
+    padding-bottom: 595px;
   }
 }
 @media (min-width: 1440px) {
   .main-add__input-container {
-    margin-bottom: 363px;
+    padding-bottom: 363px;
   }
 }
 .main-add__clarification-container {
@@ -379,6 +426,7 @@ body {
   flex-direction: row;
   justify-content: center;
   flex-wrap: nowrap;
+  height: 36px;
 }
 
 .char {
@@ -389,18 +437,23 @@ body {
   font-size: 24px;
   line-height: 150%;
   margin-bottom: 16px;
-  transform: scale(4);
+  transform: scale(2);
   transition: transform 0.5s;
+  color: inherit;
 }
 @media (min-width: 768px) {
   .char {
     font-size: 48px;
   }
 }
+.char--missed {
+  color: #ff0000;
+  transform: scale(1);
+}
 
 .underscore {
   width: 100%;
-  border-bottom: 4px solid #0A3871;
+  border-bottom: 4px solid;
 }
 
 .person {
@@ -409,6 +462,11 @@ body {
 .person__part {
   position: relative;
   z-index: 99;
+  transition: fill 0.5s;
+}
+
+body.dark .person * {
+  fill: white;
 }
 
 .button {
@@ -420,7 +478,8 @@ body {
   border-radius: 24px;
   width: 100%;
   height: 100%;
-  border: 1px solid #0A3871;
+  color: inherit;
+  border: 1px solid;
   background: transparent;
   padding: 0;
   font-size: inherit;
@@ -428,7 +487,45 @@ body {
 .button--dark {
   background-color: #0A3871;
   color: white;
+  transition: color 0.5s, background 0.5s;
   border: none;
+}
+.button-disabled-message {
+  position: absolute;
+  opacity: 0;
+  bottom: 0;
+  font-size: 11px;
+  padding: 4px 12px;
+  border: 1px solid;
+  border-radius: 20px;
+  z-index: 3;
+  pointer-events: none;
+  background-color: inherit;
+  transition: bottom 0.5s, opacity 0.5s, background 0.5s;
+}
+@media (min-width: 768px) {
+  .button-disabled-message {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+}
+.button:disabled {
+  cursor: not-allowed;
+  filter: opacity(0.5);
+}
+.button:disabled:hover + .button-disabled-message {
+  bottom: -15px;
+  opacity: 1;
+}
+@media (min-width: 768px) {
+  .button:disabled:hover + .button-disabled-message {
+    bottom: -35px;
+  }
+}
+
+body.dark .button--dark {
+  background-color: #F3F5FC;
+  color: #0A3871;
 }
 
 .button-panel {
@@ -461,6 +558,8 @@ body {
   justify-content: center;
   align-items: center;
   height: 67px;
+  position: relative;
+  z-index: 5;
 }
 .button-panel__button-container--thin {
   padding: 0 20px;
@@ -505,6 +604,13 @@ body {
   color: #495057;
 }
 
+body.dark .clarification__description {
+  color: white;
+}
+body.dark .clarification path {
+  fill: white;
+}
+
 .input-invisible {
   opacity: 0;
   width: 0;
@@ -529,6 +635,10 @@ body {
   display: block;
 }
 
+body.dark .github-link path {
+  fill: white;
+}
+
 .linkedin-link__svg {
   position: absolute;
   width: 100%;
@@ -547,8 +657,13 @@ body {
   display: block;
 }
 
+body.dark .linkedin-link path {
+  fill: white;
+}
+
 .message-win, .message-lose {
   background-color: white;
+  color: #0A3871;
   width: 250px;
   height: 350px;
   display: flex;
@@ -557,6 +672,7 @@ body {
   align-items: center;
   gap: 20px;
   border-radius: 24px;
+  border: 2px solid;
 }
 @media (min-width: 768px) {
   .message-win, .message-lose {
@@ -582,13 +698,14 @@ body {
   justify-content: center;
   align-items: center;
   z-index: 10;
-  background-color: rgba(10, 56, 113, 0.5);
+  background-color: rgba(0, 0, 0, 0.4);
   opacity: 1;
   transition: opacity 0.5s;
 }
 .message-win img, .message-lose img {
   width: 200px;
   height: 200px;
+  border-radius: 40px;
 }
 @media (min-width: 768px) {
   .message-win img, .message-lose img {
@@ -613,4 +730,109 @@ body {
   .message-win p, .message-lose p {
     font-size: 2.5em;
   }
+}
+
+body.dark .message-win, body.dark .message-lose {
+  background-color: #0A3871;
+  color: white;
+}
+
+@-webkit-keyframes translate-right {
+  0% {
+    right: 50%;
+  }
+  100% {
+    right: 0;
+  }
+}
+
+@keyframes translate-right {
+  0% {
+    right: 50%;
+  }
+  100% {
+    right: 0;
+  }
+}
+@-webkit-keyframes translate-left {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 50%;
+  }
+}
+@keyframes translate-left {
+  0% {
+    right: 0;
+  }
+  100% {
+    right: 50%;
+  }
+}
+.dark-mode-checkbox {
+  display: none;
+}
+.dark-mode-checkbox:checked + header .dark-mode-button {
+  -webkit-animation: translate-right 0.5s forwards;
+          animation: translate-right 0.5s forwards;
+}
+.dark-mode-label {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(10, 56, 113, 0.5);
+  border-radius: 40px;
+  transition: background 0.5s;
+}
+.dark-mode-button {
+  -webkit-animation: translate-left 0.5s forwards;
+          animation: translate-left 0.5s forwards;
+  position: absolute;
+  background-color: #0a3871;
+  height: 100%;
+  width: 50%;
+  border-radius: 40px;
+  transition: background 0.5s;
+}
+.dark-mode-text {
+  display: none;
+}
+.dark-mode-icon--light path {
+  fill: #f3f5fc;
+  transition: fill 0.5s;
+}
+.dark-mode-icon--dark path {
+  fill: rgba(243, 245, 252, 0.75);
+  transition: fill 0.5s;
+}
+.dark-mode-names {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 0 7.5px;
+  align-items: center;
+}
+.dark-mode-light, .dark-mode-dark {
+  position: relative;
+  z-index: 5;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+}
+
+body.dark .dark-mode-label {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+body.dark .dark-mode-button {
+  background-color: white;
+}
+body.dark .dark-mode-icon--light path {
+  fill: rgba(10, 56, 113, 0.75);
+}
+body.dark .dark-mode-icon--dark path {
+  fill: #0a3871;
 }/*# sourceMappingURL=main.css.map */

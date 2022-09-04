@@ -1,6 +1,5 @@
-// -----------------------------------------------------------------------------
-// This file contains all styles related to the footer of the site/application.
-// -----------------------------------------------------------------------------
+@use '../abstracts/variables';
+
 .main-footer {
     padding: 0 10px;
     margin-bottom: 20px;
@@ -8,6 +7,7 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    max-width: 1440px;
 
     &__copyright{
         width: 100%;
@@ -36,5 +36,15 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    path {
+        transition: fill 0.5s;
+    }
+}
+
+body.dark {
+    .main-footer path {
+        fill: variables.$color2;
     }
 }

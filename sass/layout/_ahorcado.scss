@@ -1,3 +1,5 @@
+@use '../abstracts/variables';
+
 .ahorcado {
     display: flex;
     flex-direction: column;
@@ -59,9 +61,12 @@
             flex-direction: row;
             justify-content: center;
             flex-wrap: nowrap;
+            height: 36px;
             // gap: 24px;
         }
     }
+
+    
 }
 
 .char {
@@ -73,17 +78,23 @@
     font-size: 24px;
     line-height: 150%;
     margin-bottom: 16px;
-    transform: scale(4);
+    transform: scale(2);
     transition: transform 0.5s;
+    color: inherit;
 
     @media (min-width: 768px) {
         font-size: 48px;
+    }
+
+    &--missed {
+        color: #ff0000;
+        transform: scale(1);
     }
 }
 
 .underscore {
     width: 100%;
-    border-bottom: 4px solid #0A3871;
+    border-bottom: 4px solid;
 }
 
 .person {
@@ -91,5 +102,14 @@
     &__part {
         position: relative;
         z-index: 99;
+        transition: fill 0.5s;
+    }
+}
+
+body.dark {
+    .person {
+        & * {
+            fill: variables.$color2;
+        }
     }
 }
