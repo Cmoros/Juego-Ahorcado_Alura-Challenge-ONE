@@ -320,17 +320,17 @@ body.dark .main-footer path {
 }
 @media (min-width: 768px) {
   .main-add {
-    margin: 118.09px 40px 40px;
+    margin: 100px 40px 40px;
     max-width: 1000px;
   }
 }
 @media (min-width: 1440px) {
   .main-add {
-    margin: 150px 376px 150px;
+    margin: 100px 376px 150px;
   }
 }
 .main-add__input-container {
-  padding-bottom: 251px;
+  padding-bottom: 200px;
   cursor: text;
 }
 @media (min-width: 768px) {
@@ -350,7 +350,7 @@ body.dark .main-footer path {
 .main-start {
   position: relative;
   flex-basis: 317px;
-  margin: 185px 29px;
+  margin: 180px 29px;
   right: 0;
   transition: right 0.25s;
 }
@@ -377,11 +377,13 @@ body.dark .main-footer path {
   padding: 0 20px;
 }
 .ahorcado__person-container {
-  margin-bottom: 40px;
+  margin: -80px 0 -70px;
+  transform: scale(0.5);
 }
 @media (min-width: 768px) {
   .ahorcado__person-container {
-    margin-bottom: 56px;
+    margin: 0 0 56px;
+    transform: scale(1);
   }
 }
 @media (min-width: 1440px) {
@@ -444,6 +446,7 @@ body.dark .main-footer path {
 @media (min-width: 768px) {
   .char {
     font-size: 48px;
+    transform: scale(8);
   }
 }
 .char--missed {
