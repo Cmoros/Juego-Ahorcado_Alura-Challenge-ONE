@@ -109,7 +109,7 @@ class AhorcadoGame {
             }
             saveWordButton.disabled = true;
 
-        })
+        });
 
         // main-game
         quitGameButton.addEventListener('click', () => {
@@ -118,20 +118,20 @@ class AhorcadoGame {
 
         newGameButton.addEventListener('click', () => {
             this.displayMainGame(mainGame);
-        })
+        });
 
         ahorcadoContainer.addEventListener('click', () => {
             invisibleInput.focus();
-        })
+        });
 
         mainAdd.addEventListener('click', () => {
             addWordInput.focus();
-        })
+        });
 
         invisibleInput.addEventListener('input', (e)=>{
             this.invisibleInputEvent(e);
             e.target.value = "";
-        })
+        });
 
         this.gameTimeOut = false;
     }
@@ -148,6 +148,8 @@ class AhorcadoGame {
             }
         } catch(err) {
             this.setStarterWords();
+        } finally {
+            this.wordArray = JSON.parse(localStorage.ahorcadoWords);
         }
     }
 
