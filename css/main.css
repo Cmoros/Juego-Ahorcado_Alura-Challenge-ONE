@@ -66,10 +66,11 @@ body {
   font-size: 1em;
   color: #0A3871;
   background-color: #F3F5FC;
+  min-height: 100vh;
   width: 100%;
   display: flex;
   overflow-y: visible;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-direction: column;
   overflow-x: hidden;
@@ -224,6 +225,7 @@ body.dark .main-header path {
 }
 
 .main-footer {
+  width: 100%;
   padding: 0 10px;
   margin-bottom: 20px;
   display: flex;
@@ -231,6 +233,11 @@ body.dark .main-header path {
   align-items: center;
   gap: 10px;
   max-width: 1440px;
+}
+@media (min-width: 768px) {
+  .main-footer {
+    gap: 20px;
+  }
 }
 .main-footer__copyright {
   width: 100%;
@@ -254,6 +261,11 @@ body.dark .main-header path {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+@media (min-width: 768px) {
+  .main-footer__firma-container {
+    font-size: 1.5em;
+  }
 }
 .main-footer path {
   transition: fill 0.5s;
@@ -388,7 +400,7 @@ body.dark .main-footer path {
 }
 @media (min-width: 1440px) {
   .ahorcado__person-container {
-    margin-bottom: 120px;
+    margin-bottom: 90px;
   }
 }
 .ahorcado__letters-container {

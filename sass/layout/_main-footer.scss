@@ -1,6 +1,7 @@
 @use '../abstracts/variables';
 
 .main-footer {
+    width: 100%;
     padding: 0 10px;
     margin-bottom: 20px;
     display: flex;
@@ -8,6 +9,10 @@
     align-items: center;
     gap: 10px;
     max-width: 1440px;
+
+    @media (min-width: 768px) {
+        gap: 20px;
+    }
 
     &__copyright{
         width: 100%;
@@ -32,10 +37,13 @@
     }
 
     &__firma-container {
-        
         display: flex;
         flex-direction: column;
         justify-content: center;
+
+        @media (min-width: 768px) {
+            font-size: 1.5em;
+        }
     }
 
     path {

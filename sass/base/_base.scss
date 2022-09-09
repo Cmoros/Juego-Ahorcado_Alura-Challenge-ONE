@@ -19,10 +19,11 @@ body {
     font-size: 1em;
     color: variables.$color1;
     background-color: variables.$bgc1;
+    min-height: calc(100vh);
     width: 100%;
     display: flex;
     overflow-y: visible;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     flex-direction: column;
     overflow-x: hidden;

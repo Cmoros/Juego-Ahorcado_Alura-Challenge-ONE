@@ -1,12 +1,12 @@
 const darkModeCheckbox = document.querySelector('#dark-mode-checkbox');
 
 function changeDarkMode() {
-    document.body.classList.toggle('dark');
-    localStorage.darkMode = darkModeCheckbox.checked || "";
+    localStorage.darkMode = document.body.classList.toggle('dark') ? 'dark' : 'light';
 }
 
 function initDarkMode() {
-    if (localStorage.darkMode) {
+    if (localStorage.darkMode === 'light') return;
+    if (localStorage.darkMode === 'dark') {
         darkModeCheckbox.checked = true;
         changeDarkMode();
         return;
@@ -17,8 +17,6 @@ function initDarkMode() {
         changeDarkMode();
     }
 }
-
-
 
 darkModeCheckbox.addEventListener('change', e => {
     changeDarkMode();
@@ -55,7 +53,21 @@ let starterWords = [
     'CANCION',
     'TRUENO',
     'TOMATE',
-    'CONTROL'
+    'CONTROL',
+    'POZO',
+    'CUNA',
+    'GRAPAS',
+    'TAZA',
+    'COLOR',
+    'TOALLA',
+    'RATON',
+    'ARRIBA',
+    'CALLE',
+    'ESPADA',
+    'ALIENTO',
+    'TORTUGA',
+    'SOLDADO',
+    'MACETA'
 ];
 
 let regExpOnlyLetters = /^[A-ZÑa-zñ]{2,8}$/;
@@ -125,19 +137,22 @@ class AhorcadoGame {
     }
     
     localStorageCheck = () => {
-        localStorage.ahorcadoWordsStarter = starterWords;
-        let len = localStorage.ahorcadoWordsStarter.length;
-        if (localStorage.ahorcadoWords && (localStorage.ahorcadoWords.slice(0,len) === localStorage.ahorcadoWordsStarter)) {
-            this.wordArray = [];
-            for (let word of localStorage.ahorcadoWords.split(',')) {
-                if (this.checkAddableWord(word)) {
-                    this.addNewWord(word);                
-                }
+        try {
+            if (!localStorage.ahorcadoWords) {
+                throw new Error('No local Storage data');
             }
-        } else {
-            this.wordArray = starterWords;
-            localStorage.ahorcadoWords = this.wordArray;
+            let len = starterWords.length;
+            let actualLocalStorage = JSON.parse(localStorage.ahorcadoWords);
+            if (actualLocalStorage.length < len || !localStorage.ahorcadoWords.slice(0,-1).includes(JSON.stringify(starterWords).slice(0,-1))) {
+                throw new Error('Local Storage data not valid');
+            }
+        } catch(err) {
+            this.setStarterWords();
         }
+    }
+
+    setStarterWords = () => {
+        localStorage.ahorcadoWords = JSON.stringify(starterWords);
     }
 
     displayMainAdd = (originMain) => {
@@ -148,7 +163,7 @@ class AhorcadoGame {
     }
 
     checkAddableWord = (newWord) => {
-        return regExpOnlyLetters.test(newWord.trim()) && !this.wordArray.includes(newWord);
+        return regExpOnlyLetters.test(newWord.trim());
     }
 
     displayMainGame = (originMain) => {
