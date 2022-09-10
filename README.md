@@ -47,7 +47,7 @@ En esta ocasión, se agarró el concepto principal de la [plantilla propuesta po
 
 Responsive Design y Ejemplo de uso
 
-![html5](https://user-images.githubusercontent.com/93099135/188763469-32f71d09-213e-4fa1-89b4-4a8c07e611d5.png)
+[Juego Del Ahorcado - Alura Challenge - Challenge ONE.webm](https://user-images.githubusercontent.com/93099135/189497282-65088645-1846-4839-922e-917ff3f2c59e.mp4)
 
 ---
 
