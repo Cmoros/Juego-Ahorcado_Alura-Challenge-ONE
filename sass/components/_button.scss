@@ -13,13 +13,13 @@
     border: 1px solid;
     background: transparent;
     padding: 0;
+    transition: color 0.5s, background 0.5s ,transform 0.1s linear;
     
     font-size: inherit;
 
     &--dark {
         background-color: variables.$bgc2;
         color: variables.$color2;
-        transition: color 0.5s, background 0.5s;
         border: none;
     }
 
@@ -55,6 +55,14 @@
                 bottom: -35px;
             }
         }
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+    
+    &:active {
+        transform: translateY(3px);
     }
 }
 

@@ -497,12 +497,12 @@ body.dark .person * {
   border: 1px solid;
   background: transparent;
   padding: 0;
+  transition: color 0.5s, background 0.5s, transform 0.1s linear;
   font-size: inherit;
 }
 .button--dark {
   background-color: #0A3871;
   color: white;
-  transition: color 0.5s, background 0.5s;
   border: none;
 }
 .button-disabled-message {
@@ -536,6 +536,12 @@ body.dark .person * {
   .button:disabled:hover + .button-disabled-message {
     bottom: -35px;
   }
+}
+.button:hover {
+  transform: translateY(-3px);
+}
+.button:active {
+  transform: translateY(3px);
 }
 
 body.dark .button--dark {
@@ -785,6 +791,28 @@ body.dark .message-win, body.dark .message-lose {
     right: 50%;
   }
 }
+@-webkit-keyframes fake-translate-right {
+  0% {
+    right: 50%;
+  }
+  50% {
+    right: 45%;
+  }
+  100% {
+    right: 50%;
+  }
+}
+@keyframes fake-translate-right {
+  0% {
+    right: 50%;
+  }
+  50% {
+    right: 45%;
+  }
+  100% {
+    right: 50%;
+  }
+}
 .dark-mode-checkbox {
   display: none;
 }
@@ -794,6 +822,7 @@ body.dark .message-win, body.dark .message-lose {
 }
 .dark-mode-label {
   position: relative;
+  cursor: pointer;
   width: 100%;
   height: 100%;
   background-color: rgba(10, 56, 113, 0.5);
@@ -815,10 +844,12 @@ body.dark .message-win, body.dark .message-lose {
 }
 .dark-mode-icon--light path {
   fill: #f3f5fc;
+  opacity: 1;
   transition: fill 0.5s;
 }
 .dark-mode-icon--dark path {
-  fill: rgba(243, 245, 252, 0.75);
+  fill: #f3f5fc;
+  opacity: 0.75;
   transition: fill 0.5s;
 }
 .dark-mode-names {
@@ -846,8 +877,10 @@ body.dark .dark-mode-button {
   background-color: white;
 }
 body.dark .dark-mode-icon--light path {
-  fill: rgba(10, 56, 113, 0.75);
+  fill: #0a3871;
+  opacity: 0.75;
 }
 body.dark .dark-mode-icon--dark path {
   fill: #0a3871;
+  opacity: 1;
 }/*# sourceMappingURL=main.css.map */
