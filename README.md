@@ -4,6 +4,8 @@
 
 Fue ideado para colocar en práctica los conocimientos que se van adquiriendo mientras se realizan los cursos de la ruta de aprendizaje.
 
+Es un Challenge cuyo objetivo fue crear un juego del ahorcado, en el cual existe una palabra secreta que se tiene que adivinar, y cuentas con una cantidad limitada de intentos para llegar con ella, adivinando letra por letra, mientras que la página que va guiando en las letras acertadas y las incorrectas. Finalmente se llega a un resultado, en el que puedes triunfar o en caso contrario, se te muestra cual era la palabra que no pudo ser adivinada.
+
 #### [🔗Link a GitHub Page del proyecto](https://cmoros.github.io/Juego-Ahorcado_Alura-Challenge-ONE/)
 
 #### [🔗Visita la página del Desafío](https://www.aluracursos.com/challenges/oracle-one/sprint02-crea-tu-propio-juego-del-ahorcado-con-javascript) 📃
